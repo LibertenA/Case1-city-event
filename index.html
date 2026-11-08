@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self'; font-src 'self'; form-action 'self'; base-uri 'self'">
+  <title>Контур — городской фестиваль технологий, 12 декабря 2026</title>
+  <meta name="description" content="Бесплатный фестиваль технологий в Воронеже: доклады, воркшопы и практика для студентов и молодых специалистов. Программа, спикеры, схема площадки и регистрация.">
+  <meta name="theme-color" content="#0E1A2B">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержанию</a>
+
+  <header class="site-header" id="top">
+    <div class="container site-header__inner">
+      <a class="logo" href="#top" aria-label="Контур — на главную">
+        <svg class="logo__mark" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true" focusable="false">
+          <rect x="2" y="2" width="28" height="28" rx="7" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <rect x="9" y="9" width="14" height="14" rx="3" fill="#CDF244"/>
+        </svg>
+        <span class="logo__text">Контур</span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle__bars" aria-hidden="true"></span>
+        <span class="nav-toggle__label">Меню</span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+        <ul class="site-nav__list">
+          <li><a href="#program">Программа</a></li>
+          <li><a href="#speakers">Спикеры</a></li>
+          <li><a href="#venue">Площадка</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+          <li><a class="btn btn--accent btn--small" href="#register">Зарегистрироваться</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero__inner">
+        <div class="hero__text">
+          <p class="hero__date">12 декабря 2026, суббота, 10:00–19:00</p>
+          <h1 id="hero-title" class="hero__title">Контур</h1>
+          <p class="hero__lead">Городской фестиваль технологий. Двенадцать докладов и воркшопов, три зала и одна цель: понять, как делать цифровые сервисы, которыми пользуются люди.</p>
+          <div class="hero__actions">
+            <a class="btn btn--accent" href="#register">Зарегистрироваться</a>
+            <a class="btn btn--ghost" href="#program">Смотреть программу</a>
+          </div>
+          <p class="hero__countdown" id="countdown" aria-live="off">До начала фестиваля: считаем…</p>
+        </div>
+
+        <dl class="hero__facts">
+          <div class="fact">
+            <dt>Где</dt>
+            <dd>Технопарк «Контур», Воронеж</dd>
+          </div>
+          <div class="fact">
+            <dt>Кому</dt>
+            <dd>Студентам, школьникам старших классов и молодым специалистам</dd>
+          </div>
+          <div class="fact">
+            <dt>Сколько стоит</dt>
+            <dd>Вход бесплатный, нужна регистрация</dd>
+          </div>
+        </dl>
+
+        <svg class="hero__plan" viewBox="0 0 400 300" aria-hidden="true" focusable="false">
+          <rect x="10" y="10" width="380" height="280" rx="18"/>
+          <rect x="30" y="30" width="200" height="140" rx="10"/>
+          <rect x="250" y="30" width="120" height="80" rx="10"/>
+          <rect x="250" y="130" width="120" height="40" rx="10"/>
+          <rect x="30" y="190" width="120" height="80" rx="10"/>
+          <path d="M170 190h200v80H170z"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="section" id="program" aria-labelledby="program-title">
+      <div class="container">
+        <h2 id="program-title" class="section__title">Программа</h2>
+        <p class="section__lead">Выберите зал или найдите доклад по названию. Выступления в разных залах идут одновременно.</p>
+
+        <div class="toolbar">
+          <div class="chips" role="group" aria-label="Фильтр по залам" id="hall-filter"></div>
+          <div class="search">
+            <label class="search__label" for="program-search">Поиск по программе</label>
+            <input class="search__input" id="program-search" type="search" placeholder="Например, безопасность" autocomplete="off" maxlength="60">
+          </div>
+        </div>
+
+        <p class="toolbar__status" id="program-status" role="status" aria-live="polite"></p>
+        <ol class="program" id="program-list"></ol>
+
+        <div class="state" id="program-empty" hidden>
+          <h3 class="state__title">Ничего не найдено</h3>
+          <p class="state__text" id="program-empty-text"></p>
+          <button class="btn btn--ghost btn--small" type="button" id="program-reset">Сбросить фильтры</button>
+        </div>
+        <div class="state state--error" id="program-error" hidden>
+          <h3 class="state__title">Программа не загрузилась</h3>
+          <p class="state__text">Не удалось получить данные. Обновите страницу или попробуйте позже.</p>
+          <button class="btn btn--ghost btn--small" type="button" id="program-retry">Повторить</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tint" id="speakers" aria-labelledby="speakers-title">
+      <div class="container">
+        <h2 id="speakers-title" class="section__title">Спикеры</h2>
+        <p class="section__lead">Все персонажи вымышлены, портреты заменены стилизованными аватарами.</p>
+        <ul class="speakers" id="speakers-list"></ul>
+        <div class="state state--error" id="speakers-error" hidden>
+          <h3 class="state__title">Список спикеров недоступен</h3>
+          <p class="state__text">Данные не загрузились. Обновите страницу.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="venue" aria-labelledby="venue-title">
+      <div class="container venue">
+        <div class="venue__text">
+          <h2 id="venue-title" class="section__title">Площадка</h2>
+          <p class="section__lead">Нажмите на зал на схеме, чтобы увидеть его программу.</p>
+          <ul class="legend" id="hall-legend"></ul>
+          <dl class="venue__info">
+            <div><dt>Адрес</dt><dd>Воронеж, технопарк «Контур» (вымышленная площадка для учебного проекта)</dd></div>
+            <div><dt>Как добраться</dt><dd>Остановка общественного транспорта «Технопарк» в двух минутах ходьбы от главного входа.</dd></div>
+            <div><dt>Доступность</dt><dd>Вход без ступеней, лифт к каждому залу, гардероб бесплатно.</dd></div>
+          </dl>
+          <a class="link" href="https://yandex.ru/maps/?text=%D0%92%D0%BE%D1%80%D0%BE%D0%BD%D0%B5%D0%B6" target="_blank" rel="noopener noreferrer">Открыть Воронеж на картах (новая вкладка)</a>
+        </div>
+
+        <figure class="venue__map">
+          <svg id="venue-map" viewBox="0 0 640 420" role="group" aria-labelledby="map-title map-desc" focusable="false">
+            <title id="map-title">Схема площадки</title>
+            <desc id="map-desc">Три зала на первом этаже: Большой зал, Лаборатория и Мастерская, а также вход, регистрация, гардероб и кафе.</desc>
+            <rect class="map__building" x="8" y="8" width="624" height="404" rx="22"/>
+            <g class="map__hall" id="map-main" role="button" tabindex="0" aria-label="Большой зал. Показать программу зала">
+              <rect x="40" y="40" width="330" height="190" rx="14"/>
+              <text x="205" y="128" text-anchor="middle" class="map__name">Большой зал</text>
+              <text x="205" y="156" text-anchor="middle" class="map__sub">300 мест</text>
+            </g>
+            <g class="map__hall" id="map-lab" role="button" tabindex="0" aria-label="Лаборатория. Показать программу зала">
+              <rect x="395" y="40" width="205" height="115" rx="14"/>
+              <text x="497" y="92" text-anchor="middle" class="map__name">Лаборатория</text>
+              <text x="497" y="118" text-anchor="middle" class="map__sub">80 мест</text>
+            </g>
+            <g class="map__hall" id="map-shop" role="button" tabindex="0" aria-label="Мастерская. Показать программу зала">
+              <rect x="395" y="175" width="205" height="100" rx="14"/>
+              <text x="497" y="220" text-anchor="middle" class="map__name">Мастерская</text>
+              <text x="497" y="246" text-anchor="middle" class="map__sub">40 мест</text>
+            </g>
+            <g class="map__service">
+              <rect x="40" y="255" width="140" height="80" rx="10"/>
+              <text x="110" y="300" text-anchor="middle">Регистрация</text>
+              <rect x="200" y="255" width="170" height="80" rx="10"/>
+              <text x="285" y="300" text-anchor="middle">Кафе</text>
+              <rect x="395" y="295" width="205" height="60" rx="10"/>
+              <text x="497" y="331" text-anchor="middle">Гардероб</text>
+            </g>
+            <g class="map__entrance">
+              <rect x="250" y="400" width="140" height="16" rx="8"/>
+              <text x="320" y="392" text-anchor="middle">Главный вход</text>
+            </g>
+          </svg>
+          <figcaption class="venue__caption">Схема условная, масштаб не соблюдён.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section section--tint" id="register" aria-labelledby="register-title">
+      <div class="container register">
+        <div class="register__intro">
+          <h2 id="register-title" class="section__title">Регистрация</h2>
+          <p class="section__lead">Регистрация бесплатная и занимает минуту. Это учебный проект: введённые данные никуда не отправляются и не сохраняются.</p>
+          <ul class="checklist">
+            <li>Мы не просим документы и платёжные данные.</li>
+            <li>Почта нужна, чтобы прислать подтверждение и схему проезда.</li>
+            <li>Место в залах ограничено, воркшопы заполняются первыми.</li>
+          </ul>
+        </div>
+
+        <div class="register__card">
+          <form id="register-form" class="form" novalidate>
+            <div class="form__alert" id="form-alert" role="alert" hidden></div>
+
+            <div class="field" data-field="name">
+              <label class="field__label" for="f-name">Фамилия и имя</label>
+              <input class="field__input" id="f-name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="f-name-hint f-name-error">
+              <p class="field__hint" id="f-name-hint">Например, Иванова Мария</p>
+              <p class="field__error" id="f-name-error" hidden></p>
+            </div>
+
+            <div class="field" data-field="email">
+              <label class="field__label" for="f-email">Электронная почта</label>
+              <input class="field__input" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="254" required aria-describedby="f-email-error">
+              <p class="field__error" id="f-email-error" hidden></p>
+            </div>
+
+            <div class="field" data-field="phone">
+              <label class="field__label" for="f-phone">Телефон</label>
+              <input class="field__input" id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 (900) 123-45-67" maxlength="18" required aria-describedby="f-phone-error">
+              <p class="field__error" id="f-phone-error" hidden></p>
+            </div>
+
+            <div class="field" data-field="hall">
+              <label class="field__label" for="f-hall">Что вам интереснее всего</label>
+              <select class="field__input" id="f-hall" name="hall" required aria-describedby="f-hall-error">
+                <option value="">Выберите зал</option>
+                <option value="main">Большой зал: доклады и дискуссии</option>
+                <option value="lab">Лаборатория: воркшопы с оборудованием</option>
+                <option value="shop">Мастерская: практика и разбор проектов</option>
+              </select>
+              <p class="field__error" id="f-hall-error" hidden></p>
+            </div>
+
+            <fieldset class="field field--group" data-field="format">
+              <legend class="field__label">Формат участия</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="format" value="offline"><span>Приду на площадку</span></label>
+                <label class="choice"><input type="radio" name="format" value="online"><span>Буду смотреть трансляцию</span></label>
+              </div>
+              <p class="field__error" id="f-format-error" hidden></p>
+            </fieldset>
+
+            <div class="field field--check" data-field="consent">
+              <label class="check">
+                <input type="checkbox" id="f-consent" name="consent" aria-describedby="f-consent-error">
+                <span>Согласен на обработку персональных данных для организации фестиваля</span>
+              </label>
+              <p class="field__error" id="f-consent-error" hidden></p>
+            </div>
+
+            <div class="visually-hidden" aria-hidden="true">
+              <label for="f-website">Не заполняйте это поле</label>
+              <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <button class="btn btn--primary btn--wide" type="submit" id="submit-btn">Отправить заявку</button>
+          </form>
+
+          <div class="success" id="form-success" tabindex="-1" hidden>
+            <h3 class="success__title">Заявка принята</h3>
+            <p class="success__text">Номер заявки: <strong id="success-code"></strong>. Это демонстрационный сайт, поэтому письмо не отправляется.</p>
+            <button class="btn btn--ghost btn--small" type="button" id="success-reset">Подать ещё одну заявку</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contacts" aria-labelledby="contacts-title">
+      <div class="container">
+        <h2 id="contacts-title" class="section__title">Контакты</h2>
+        <p class="section__lead">Адреса и номера условные: используются только в учебных целях.</p>
+        <ul class="contacts">
+          <li class="contacts__item">
+            <h3 class="contacts__title">Вопросы по участию</h3>
+            <p><a class="link" href="mailto:info@kontur-fest.example">info@kontur-fest.example</a></p>
+          </li>
+          <li class="contacts__item">
+            <h3 class="contacts__title">Телефон оргкомитета</h3>
+            <p><a class="link" href="tel:+74730000000">+7&nbsp;(473)&nbsp;000&#8209;00&#8209;00</a></p>
+          </li>
+          <li class="contacts__item">
+            <h3 class="contacts__title">Часы работы до фестиваля</h3>
+            <p>Будни с 10:00 до 18:00</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>Контур, 2026. Учебный проект, все данные вымышлены.</p>
+      <a class="link link--light" href="#top">Наверх</a>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/validators.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
